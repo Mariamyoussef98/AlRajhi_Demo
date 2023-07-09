@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typeorm_1 = require("typeorm");
+const { createConnection } = require("typeorm");
 const User_1 = require("./entities/User");
 const Complaint_1 = require("./entities/Complaint");
 const Branch_1 = require("./entities/Branch");
@@ -24,7 +24,7 @@ const Accounts_1 = __importDefault(require("./routes/Accounts"));
 const app = (0, express_1.default)();
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, typeorm_1.createConnection)({
+        yield createConnection({
             type: "postgres",
             host: "db.xzorivsxlxeozkpnzmcv.supabase.co",
             port: 5432,
