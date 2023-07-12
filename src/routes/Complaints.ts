@@ -29,9 +29,10 @@ router.post("/:phoneNumber", async (req, res) => {
     const user = await User.findOne({ where: { phoneNumber } });
     if (!user) return res.status(404).json({ msg: "User not found" });
 
-    const { userComplaint } = req.body;
+    const { userComplaint, status } = req.body;
     const newComplaint = Complaint.create({
       userComplaint,
+      status,
       user,
     });
 
