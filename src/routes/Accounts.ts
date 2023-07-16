@@ -148,7 +148,7 @@ router.post("/checkTransfer", async (req, res) => {
 //transfer balance and update both accounts balances
 router.post("/transfer", async (req, res) => {
   try {
-    const { senderAccount, receiverAccount, transferAmount } = req.body;
+    const { senderAccount, transferAmount } = req.body;
 
     //get sender account
     const sender = await PersonalAccount.findOne({
@@ -159,13 +159,13 @@ router.post("/transfer", async (req, res) => {
       res.status(404).json({ msg: "Sender Account not found" });
     }
     //get receiver account
-    const receiver = await PersonalAccount.findOne({
-      where: { accountNumber: receiverAccount },
-      relations: ["user"],
-    });
-    if (!receiver) {
-      res.status(404).json({ msg: "Receiver Account not found" });
-    }
+    // const receiver = await PersonalAccount.findOne({
+    //   where: { accountNumber: receiverAccount },
+    //   relations: ["user"],
+    // });
+    // if (!receiver) {
+    //   res.status(404).json({ msg: "Receiver Account not found" });
+    // }
 
     //update account balances
     // Update sender account balance
@@ -173,8 +173,8 @@ router.post("/transfer", async (req, res) => {
     await sender!.save();
 
     // Update receiver account balance
-    receiver!.balance += +transferAmount;
-    await receiver!.save();
+    // receiver!.balance += +transferAmount;
+    // await receiver!.save();
 
     res.json({ status: "Transfer successful" });
   } catch (error) {
